@@ -1,0 +1,4 @@
+{
+    "particle.firmwareVersion": "3.3.1",
+    "particle.targetPlatform": "electron"
+}
