@@ -1,0 +1,11 @@
+{
+    "extensions.ignoreRecommendations": true,
+    "C_Cpp.default.configurationProvider": "particle.particle-vscode-core",
+    "files.associations": {
+        "*.ino": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled",
+    "particle.targetPlatform": "electron",
+    "particle.targetDevice": "RecycledGuyA1",
+    "particle.firmwareVersion": "3.3.1"
+}
