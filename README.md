@@ -8,7 +8,9 @@ This firmware has two use-cases. Arudino MKR & Particle Electron. If the file fo
 Thanks to Izzy for this suggestion! Here we will be tracking each version of the firmware.
 | Microcontroller         | Version       | "Named" Ver.       | Pilot         | Date               | Description & Purpose                  |
 | ----------------------- | ------------- | ------------------ | ------------- | -------------      | -------------------------------------- |
-| Particle Electron       | V2            | Refining usability | Percy         | August 2024        | Refining UI & running new sensors      |
+| Particle Electron       | V4            | Integrate cellular | Percy         | August 2024        | Logs to SD, Cell, and all sensors      |
+|                         | V3            | Continuing edits   | Percy         | August 2024        | Updates and continued edits            |
+|                         | V2            | Refining usability | Percy         | August 2024        | Refining UI & running new sensors      |
 |                         | POC           | Proof-of-concept   | Percy         | July 2024          | Testing LPOD off Particle              |
 | Arduino MKR 1500        | V1.1.0        | MKR updated        | Percy         | July 2024          | Minor bug fixes & development from 1   |
 |                         | V1.0.0        | Initial Firmware   | Percy         | July 2024          | Very first LPOD firmware for testing   |
