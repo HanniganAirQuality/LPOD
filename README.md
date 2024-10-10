@@ -1,5 +1,5 @@
 # LPOD
-Landfill POD firmware both under the Arduino &amp; the Particle Electron firmware as we continue doing testing.
+Landfill POD firmware both under Arduino &amp; Particle firmware as we continue doing testing.
 
 # Using this Firmware
 This firmware has three use-cases. Arudino MKR, Particle Electron, and Particle Boron 404x. I can only vouch for the Boron 404x's functionality. If the file folder is titled with MKR, you must run the firmware from the Arduino IDE. If the file folder is titled with Particle, it must be run from Particle Workbench on VSCode. If you need help setting up either, please don't hesitate to reach out to Percy or Sascha.
