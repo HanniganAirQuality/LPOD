@@ -11,10 +11,11 @@ Thanks to Izzy for this suggestion! Here we will be tracking each version of the
 | Particle Boron404x      | V6            | "Final" Firmware   | Percy         | October 2024       | Changes measurement of AS-B4 sensors   |
 |                         |               |                    | Percy         | August 2024        | Moves to Boron & optimize cell         |
 | Particle Electron       | V5            | Prep for Boron     | Percy         | August 2024        | Preparing to move to Boron 404x        |
-| Particle Electron       | V4            | Integrate cellular | Percy         | August 2024        | Logs to SD, Cell, and all sensors      |
-| Particle Electron       | V3            | Continuing edits   | Percy         | August 2024        | Updates and continued edits            |
-| Particle Electron       | V2            | Refining usability | Percy         | August 2024        | Refining UI & running new sensors      |
-| Particle Electron       | POC           | Proof-of-concept   | Percy         | July 2024          | Testing LPOD off Particle              |
+|                         | V4            | Integrate cellular | Percy         | August 2024        | Logs to SD, Cell, and all sensors      |
+|                         | V3            | Continuing edits   | Percy         | August 2024        | Updates and continued edits            |
+|                         | V2            | Refining usability | Percy         | August 2024        | Refining UI & running new sensors      |
+|                         | POC           | Proof-of-concept   | Percy         | July 2024          | Testing LPOD off Particle              |
 | Arduino MKR 1500        | V1.1.0        | MKR updated        | Percy         | July 2024          | Minor bug fixes & development from 1   |
-| Arduino MKR 1500        | V1.0.0        | Initial Firmware   | Percy         | July 2024          | Very first LPOD firmware for testing   |
+|                         | V1.0.0        | Initial Firmware   | Percy         | July 2024          | Very first LPOD firmware for testing   |
+
 
