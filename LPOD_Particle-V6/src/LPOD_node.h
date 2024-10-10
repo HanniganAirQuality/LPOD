@@ -14,7 +14,7 @@
 /****************** SENSOR CONFIGS ********************/
 #define SERIAL_ENABLED        1
 #define DS3231_ENABLED        1 //I2C
-  #define ADJUST_DATETIME     0
+  #define ADJUST_DATETIME     1
 #define SD_ENABLED            1 //SPI
 #define ADS_ENABLED           1 //I2C
 #define BME_ENABLED           1 //I2C
@@ -25,11 +25,13 @@
 /****************** PIN DEFINITIONS ********************/
 //SD Writing Definitions
 #define SD_CS         A2  //Default SS for SPI comms
-//MET Station
 //LED Definitions
 #define BLUE_LED      2
 #define RED_LED       3
 #define GREEN_LED     5
+//External LED Definitions
+#define RED_EXTERNAL        4
+#define GREEN_EXTERNAL      6
 
 /****************** SET ADDR & CONST ********************/
 #define BME_SENSOR_ADDR       (0x76)

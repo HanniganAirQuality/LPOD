@@ -1,23 +1,25 @@
-/* 
- * Project myProject
- * Author: Your Name
- * Date: 
- * For comprehensive documentation and examples, please visit:
- * https://docs.particle.io/firmware/best-practices/firmware-template/
- */
-
+/*******************************************************************************
+ * @file    LPOD_Particle-V6.cpp
+ * @brief   Central Firmware
+ * 
+ * @version V6
+ *
+ * @author  Percy Smith, percy.smith@colorado.edu
+ * @date    August 2024
+ * @log     Updated ads_module to read alphasense differently
+******************************************************************************/
 // Include Particle Device OS APIs
 #include "Particle.h"
 #include "LPOD_node.h"
 #include "LPOD_DataStorage.h"
 
 #include "RTClib.h"
-#include "SdFat-Particle/SdFat.h"
+#include "Particle-SdFat/SdFat.h"
 #include "ads_module.h"
 #include "Adafruit_BME680.h" // it gotta be him--> "" 
 
 // Let Device OS manage the connection to the Particle Cloud
-SYSTEM_MODE(AUTOMATIC);
+SYSTEM_MODE(AUTOMATIC); //SEMI_AUTOMATIC "w/threading is recommended combination"
 
 // Run the application and system concurrently in separate threads
 SYSTEM_THREAD(ENABLED);
@@ -27,18 +29,18 @@ SYSTEM_THREAD(ENABLED);
 // SerialLogHandler logHandler(LOG_LEVEL_INFO);
 
 #if USE_DELAY
-  const std::chrono::milliseconds logPeriod = 5s;
+  const std::chrono::milliseconds logPeriod = 10s;
   unsigned long lastLog;
 #endif
 
 #if SD_ENABLED
   SdFat sd;
   SdFile file;
-  char fileName[] = "LPODID_YYYY_MM_DD.CSV";
+  char fileName[24];
 #endif  //SD_ENABLED
 #if DS3231_ENABLED 
   RTC_DS3231 ds3231;  //DO NOT NAME THIS RTC IT THINKS ITS A MACRO !!!
-  char bufftime[] = "YYYY-MM-DDThh:mm:ss";
+  char bufftime[25];
   int Y,M,D,h,m,s;
 #endif //DS3231_ENABLED
 
@@ -51,11 +53,11 @@ SYSTEM_THREAD(ENABLED);
 #endif
 
 #if CELL_ENABLED
-  const std::chrono::milliseconds cellPushPeriod = 30s;
+  const std::chrono::milliseconds cellPushPeriod = 20s;
   unsigned long cellLastLog;
   // The event name to publish with
   const int char_limit = 864;
-  const char *eventName = "TEST";
+  const char *eventName = "LPODB2";
   char buff[char_limit] = ""; 
   int i = 0;
 
@@ -73,11 +75,14 @@ void setup() {
   pinMode(BLUE_LED, OUTPUT);
   pinMode(RED_LED, OUTPUT);
   pinMode(SD_CS, OUTPUT);
+  pinMode(GREEN_EXTERNAL, OUTPUT);
+  pinMode(RED_EXTERNAL, OUTPUT);
 
   #if DS3231_ENABLED
     ds3231.begin();
-      // DateTime firsttime = ds3231.now();
-      // ds3231.adjust(DateTime(F(__DATE__), F(__TIME__))); 
+    #if ADJUST_DATETIME
+      ds3231.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    #endif //ADJUST_DATETIME
   #endif //DS3231_ENABLED
   
   #if ADS_ENABLED
@@ -104,24 +109,28 @@ void setup() {
       #if SERIAL_ENABLED
         Serial.println(F("Insert SD Card to begin!"));
         digitalWrite(RED_LED, HIGH);
+        digitalWrite(GREEN_EXTERNAL, LOW);
+        digitalWrite(RED_EXTERNAL, HIGH);
         delay(100);
       #endif  //SERIAL_ENABLED
       sd.begin(SD_CS);
     }
+    DateTime now = ds3231.now();
+      Y = now.year();
+      M = now.month();
+      D = now.day();
+    sprintf(fileName, "%s_%04u_%02u_%02u.CSV", lpodID, Y, M, D);
+      delay(100);
+    file.open(fileName, O_CREAT | O_APPEND | O_WRITE);    
     digitalWrite(RED_LED, LOW);
-      DateTime now = ds3231.now();
-        Y = now.year();
-        M = now.month();
-        D = now.day();
-      sprintf(fileName, "%s_%04u_%02u_%02u.CSV", lpodID, Y, M, D);
-        delay(100);
-      file.open(fileName, O_CREAT | O_APPEND | O_WRITE);
-      #if SERIAL_ENABLED
-        Serial.println(fileName);
-      #endif
-      file.close();
-      digitalWrite(SD_CS, HIGH);
-    #endif
+    digitalWrite(RED_EXTERNAL, LOW);
+    digitalWrite(GREEN_LED, HIGH);
+    #if SERIAL_ENABLED
+      Serial.println(fileName);
+    #endif //SERIAL_ENABLED
+    file.close();
+    digitalWrite(SD_CS, HIGH);
+  #endif //SD_ENABLED
 }
 
 /***************************************************************************************/
@@ -155,16 +164,22 @@ void loop() {
       #if SERIAL_ENABLED
         Serial.println("Cannot find SD Card!");
         digitalWrite(RED_LED, HIGH);
+        digitalWrite(GREEN_EXTERNAL, LOW);
+        digitalWrite(RED_EXTERNAL, HIGH);
         delay(100);
       #endif
       sd.begin(SD_CS);
     } 
     digitalWrite(RED_LED, LOW);
+    digitalWrite(RED_EXTERNAL, LOW);
     if(sd.begin(SD_CS)){
       delay(100);
       file.open(fileName, O_CREAT | O_APPEND | O_WRITE);
       delay(1000);
       digitalWrite(GREEN_LED, HIGH);
+      digitalWrite(RED_EXTERNAL, LOW);
+      digitalWrite(GREEN_EXTERNAL, HIGH);
+
       delay(100);
       file.println();
       #if DS3231_ENABLED
@@ -308,19 +323,4 @@ void loop() {
 
   }
 
-  // Example: Publish event to cloud every 10 seconds. Uncomment the next 3 lines to try it!
-  // Log.info("Sending Hello World to the cloud!");
-  // Particle.publish("Hello world!");
-  // delay( 10 * 1000 ); // milliseconds and blocking - see docs for more info!
 }
-
-// #if CELL_ENABLED
-// void publishTest() {
-//     char buf[128];
-
-//     snprintf(buf, sizeof(buf), "[%d,%d]", );
-
-//     Particle.publish(eventName, buf, PRIVATE);
-//     Log.info("published: %s", buf);
-// }  
-// #endif
