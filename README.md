@@ -8,8 +8,8 @@ This firmware has three use-cases. Arudino MKR, Particle Electron, and Particle 
 Thanks to Izzy for this suggestion! Here we will be tracking each version of the firmware.
 | Microcontroller         | Version       | "Named" Ver.       | Pilot         | Date               | Description & Purpose                  |
 | ----------------------- | ------------- | ------------------ | ------------- | -------------      | -------------------------------------- |
-| Particle Boron404x      | V6            | "Final" Firmware   | Percy         | October 2024       | Changes measurement of AS-B4 sensors   |
-|                         |               |                    | Percy         | August 2024        | Moves to Boron & optimize cell         |
+| Particle Boron404x      | V7            | "Final" Firmware   | Percy         | October 2024       | Changes measurement of AS-B4 sensors   |
+| Particle Boron404x      | V6            | Migrate to Boron   | Percy         | August 2024        | Moves to Boron & optimize cell         |
 | Particle Electron       | V5            | Prep for Boron     | Percy         | August 2024        | Preparing to move to Boron 404x        |
 |                         | V4            | Integrate cellular | Percy         | August 2024        | Logs to SD, Cell, and all sensors      |
 |                         | V3            | Continuing edits   | Percy         | August 2024        | Updates and continued edits            |
