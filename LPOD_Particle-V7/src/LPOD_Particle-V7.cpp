@@ -5,8 +5,13 @@
  * @version V7
  *
  * @author  Percy Smith, percy.smith@colorado.edu
- * @date    October 09, 2024
+ * @date    December 31, 2024
  * @log     Updated ads_module to read alphasense differently
+ * 
+ * @note    Proper function with new Boron404X - likely blew out x2 previous 
+ * 
+ * @issues  Problems with formatting JSON style over cellular (not "pretty") 
+ *          Problems with T/RH 
 ******************************************************************************/
 // Include Particle Device OS APIs
 #include "Particle.h"
@@ -19,7 +24,7 @@
 #include "Adafruit_BME680.h" // it gotta be him--> "" 
 
 // Let Device OS manage the connection to the Particle Cloud
-SYSTEM_MODE(AUTOMATIC); //SEMI_AUTOMATIC "w/threading is recommended combination"
+// SYSTEM_MODE(AUTOMATIC); //SEMI_AUTOMATIC "w/threading is recommended combination"
 
 // Run the application and system concurrently in separate threads
 SYSTEM_THREAD(ENABLED);
@@ -56,8 +61,8 @@ SYSTEM_THREAD(ENABLED);
   const std::chrono::milliseconds cellPushPeriod = 20s;
   unsigned long cellLastLog;
   // The event name to publish with
-  const int char_limit = 864;
-  const char *eventName = "LPODB2";
+  const int char_limit = 1024;
+  const char *eventName = lpodID;
   char buff[char_limit] = ""; 
   int i = 0;
 
@@ -88,6 +93,7 @@ void setup() {
   #if ADS_ENABLED
     ads_module.begin();
   #endif  //ADS_ENABLED
+  Serial.print("Made Here");
 
   #if BME_ENABLED    
     bme680.begin(BME_SENSOR_ADDR);
@@ -136,6 +142,7 @@ void setup() {
 /***************************************************************************************/
 // loop() runs over and over again, as quickly as it can execute.
 void loop() {
+  Serial.begin(9600);
   #if DS3231_ENABLED
     DateTime now = ds3231.now();
     Y = now.year();  M = now.month();  D = now.day();  h = now.hour();  m = now.minute();  s = now.second();
@@ -277,7 +284,6 @@ void loop() {
       lpoddata.CO_Worker[i] = ads.Worker;
       delay(100);
       lpoddata.Rel_Humidity[i] = bme680.readHumidity();
-      delay(100);
       lpoddata.Temperature[i] = bme680.readTemperature();
       delay(100);
       i = i+1;

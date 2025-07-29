@@ -24,10 +24,10 @@
 
 /****************** PIN DEFINITIONS ********************/
 //SD Writing Definitions
-#define SD_CS         A2  //Default SS for SPI comms
+#define SD_CS         3  //Default SS for SPI comms
 //LED Definitions
 #define BLUE_LED      2
-#define RED_LED       3
+#define RED_LED       4
 #define GREEN_LED     5
 //External LED Definitions
 #define RED_EXTERNAL        4

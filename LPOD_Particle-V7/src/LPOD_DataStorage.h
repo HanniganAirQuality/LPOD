@@ -11,7 +11,7 @@ struct LPOD_data
     uint16_t Fig2[RUN_TO_PUBLISH];
     uint16_t Fig3[RUN_TO_PUBLISH];
     uint16_t CO_Worker[RUN_TO_PUBLISH];
-    uint16_t CO_Auxiliary[RUN_TO_PUBLISH];
+    uint16_t CO_Auxiliary[RUN_TO_PUBLISH]; // return to check firmware wtf u doing please omh
 
     float Temperature[RUN_TO_PUBLISH];
     float Rel_Humidity[RUN_TO_PUBLISH];

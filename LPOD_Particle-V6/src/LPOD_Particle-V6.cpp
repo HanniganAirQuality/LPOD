@@ -46,7 +46,7 @@ SYSTEM_THREAD(ENABLED);
 
 #if ADS_ENABLED
   ADS_Module ads_module;
-  ads_data ads;
+  ads_data ads; 
 #endif
 #if BME_ENABLED
   Adafruit_BME680 bme680;

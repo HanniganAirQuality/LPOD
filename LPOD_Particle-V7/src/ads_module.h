@@ -47,9 +47,9 @@ struct ads_data
   uint16_t Fig2;
   uint16_t Fig3;
   // uint16_t Unused;
-  uint16_t Worker;
+  uint16_t Worker; //uhhhhhh
   // uint16_t Unused2;
-  uint16_t Auxiliary;
+  uint16_t Auxiliary; //uhhhhh
   // uint16_t Unused3;
 };  //struct ads_heaters
 
