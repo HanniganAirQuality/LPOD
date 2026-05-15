@@ -164,66 +164,12 @@ LPOD_V1_1_0:
       description: Raw gas resistance from BME680 VOC heater element; interpret
         relative to baseline only, not as absolute VOC concentration
 
-
 LPOD_Particle_POC:
   date: 2024-07
   changelog: Testing LPOD off Particle
   SD_fileinfo:  
-    FileName: PODID_YYYY_MM_dd #this is our most common format
-    FileType: .CSV #or .TXT, please specify
-
-LPOD_V2:
-  date: 2024-08
-  changelog: New sensors, fixing UI
-    TBH I don't think this one can even write to an SD card lol
-  SD_fileinfo:  
-    FileName: PODID_YYYY_MM_dd #this is our most common format
-    FileType: .CSV #or .TXT, please specify
-
-LPOD_V3:
-  date: 2024-08
-  changelog: Minor fixes & general dev from V2
-  SD_fileinfo:  
-    FileName: PODID_YYYY_MM_dd #this is our most common format
-    FileType: .CSV #or .TXT, please specify
-LPOD_V4:
-  date: 2024-08
-  changelog: Logs to SD, Cell & uses all sensors (first real version)
-  SD_fileinfo:  
-    FileName: PODID_YYYY_MM_dd #this is our most common format
-    FileType: .CSV #or .TXT, please specify
-LPOD_V5:
-  date: 2024-08
-  changelog: Preparing to move from Particle Electron to Boron 404x
-  SD_fileinfo:  
-    FileName: PODID_YYYY_MM_dd #this is our most common format
-    FileType: .CSV #or .TXT, please specify
-LPOD_V6:
-  date: 2024-08
-  changelog: Migrating to the Boron 404x
-  SD_fileinfo:  
-    FileName: PODID_YYYY_MM_dd #this is our most common format
-    FileType: .CSV #or .TXT, please specify
-LPOD_V7:
-  date: 2024-10
-  changelog: Fixes measurement issue in AS-B4 sensors
-  SD_fileinfo:  
-    FileName: PODID_YYYY_MM_dd #this is our most common format
-    FileType: .CSV #or .TXT, please specify
-LPOD_V8:
-  date: 2025-07
-  changelog: Negative measurement on Alphasense B4 fix
-  SD_fileinfo:  
-    FileName: PODID_YYYY_MM_dd #this is our most common format
-    FileType: .CSV #or .TXT, please specify
-
-OzPOD_V1:
-  date: 2025-05-21
-  changelog: Initial OzPOD firmware; cite LPOD_Particle_V7 (Percy Smith). References
-    LPOD_node.h and LPOD_DataStorage.h (renamed to OzPOD_ from V2 onward).
-  SD_fileinfo:  
-    FileName: OzPODID_YYYY_MM_dd
-    FileType: .CSV
+    FileName: LPODID_YYYY_MM_dd 
+    FileType: .CSV 
   SD:
     DateTime:
       unit: timestamp
@@ -231,20 +177,103 @@ OzPOD_V1:
       format: "YYYY-MM-ddThh:mm:ss"
       sensor: DS3231
       description: ISO 8601 timestamp from DS3231 RTC
-    MiCS2611_Ozone:
+    Fig1:
       unit: ADU
       dtype: uint16_t
-      sensor: MiCS-2611
+      sensor: Figaro TGS footprint 1, sensor (Often TGS 2600)
       adc: ADS1115
       adc_mode: single-ended
-      description: MiCS-2611 ozone sensor raw output
-    MQ131_Ozone:
+    Fig2:
       unit: ADU
       dtype: uint16_t
-      sensor: MQ131
+      sensor: Figaro TGS footprint 2, sensor (Often TGS 2602)
       adc: ADS1115
       adc_mode: single-ended
-      description: Winsen MQ131 ozone sensor raw output
+    Fig3:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 3
+      adc: ADS1115
+      adc_mode: single-ended
+    Alphasense_Main:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_mode: differential (2-3)
+      description: Alphasense B4 main (firmware read wrong differential pair in V1-V3; corrected to 0-1 and renamed Alphasense_Worker in V4)
+    Alphasense_Aux:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_mode: differential (0-1)
+      description: Alphasense B4 aux (firmware read wrong differential pair in V1-V3; corrected to 2-3 and renamed Alphasense_Auxiliary in V4)
+    Temperature:
+      unit: Celsius
+      dtype: float
+      sensor: BME680
+    Pressure:
+      unit: Pascals
+      dtype: float
+      sensor: BME680
+    Relative_Humidity:
+      unit: "%RH"
+      dtype: float
+      sensor: BME680
+    BME680_Gas_Resistance:
+      unit: Ohms
+      dtype: uint32_t
+      sensor: BME680
+      description: Raw gas resistance from BME680 VOC heater element; interpret
+        relative to baseline only, not as absolute VOC concentration
+
+LPOD_V2:
+  date: 2024-08
+  changelog: New sensors, fixing UI
+    This one was a restart - so there are literally no capabilities, only sensor initialization
+
+LPOD_V3:
+  date: 2024-08
+  changelog: Minor fixes & general dev from V2
+    This one only has Serial, and I will not be adding that! 
+
+LPOD_V4:
+  date: 2024-08
+  changelog: Logs to SD, Cell & uses all sensors (first real version)
+  SD_fileinfo:  
+    FileName: LPODID_YYYY_MM_dd 
+    FileType: .CSV 
+  Cell_Eventinfo: 
+    EventName: LPODID
+    EventType: PRIVATE
+    SprintfFormat: "[%u,%u,%u,%u,%u,%0.2f,%0.2f,%f,%u]" 
+    RowsPerEvent: 1
+  SD:
+    DateTime:
+      unit: timestamp
+      dtype: string
+      format: "YYYY-MM-ddThh:mm:ss"
+      sensor: DS3231
+      description: ISO 8601 timestamp from DS3231 RTC
+    Fig1:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 1, sensor (Often TGS 2600)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig2:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 2, sensor (Often TGS 2602)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig3:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 3
+      adc: ADS1115
+      adc_mode: single-ended
     Alphasense_Main:
       unit: ADU
       dtype: uint16_t
@@ -278,51 +307,22 @@ OzPOD_V1:
       description: Raw gas resistance from BME680 VOC heater element; interpret
         relative to baseline only, not as absolute VOC concentration
   Cell:
-    # NOTE: Alphasense_Aux and Alphasense_Main are swapped relative to SD due
-    # to a known firmware bug in the snprintf field order. Persists through V3.
-    # Pressure and BME680_Gas_Resistance are absent from cellular publish.
-    MiCS2611_Ozone:
+    Fig1:
       unit: ADU
       dtype: uint16_t
-    MQ131_Ozone:
-      unit: ADU
-      dtype: uint16_t
-    Alphasense_Aux:
-      unit: ADU
-      dtype: uint16_t
-    Alphasense_Main:
-      unit: ADU
-      dtype: uint16_t
-    Temperature:
-      unit: Celsius
-      dtype: float
-    Relative_Humidity:
-      unit: "%RH"
-      dtype: float
-
-OzPOD_V2:
-  date: 2025-05-21
-  changelog: Repaired git incompatibility issues between Workbench and Git.
-    Renamed node/storage headers from LPOD_ to OzPOD_. No changes to headers or data types.
-  SD_fileinfo:  
-    FileName: OzPODID_YYYY_MM_dd
-    FileType: .CSV
-  SD:
-    DateTime:
-      unit: timestamp
-      dtype: string
-      format: "YYYY-MM-ddThh:mm:ss"
-      sensor: DS3231
-    MiCS2611_Ozone:
-      unit: ADU
-      dtype: uint16_t
-      sensor: MiCS-2611
+      sensor: Figaro TGS footprint 1, sensor (Often TGS 2600)
       adc: ADS1115
       adc_mode: single-ended
-    MQ131_Ozone:
+    Fig2:
       unit: ADU
       dtype: uint16_t
-      sensor: MQ131
+      sensor: Figaro TGS footprint 2, sensor (Often TGS 2602)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig3:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 3
       adc: ADS1115
       adc_mode: single-ended
     Alphasense_Main:
@@ -331,14 +331,14 @@ OzPOD_V2:
       sensor: Alphasense B4
       adc: ADS1115
       adc_mode: differential (2-3)
-      description: Firmware read wrong differential pair in V1-V3; corrected in V4
+      description: Alphasense B4 main (firmware read wrong differential pair in V1-V3; corrected to 0-1 and renamed Alphasense_Worker in V4)
     Alphasense_Aux:
       unit: ADU
       dtype: uint16_t
       sensor: Alphasense B4
       adc: ADS1115
       adc_mode: differential (0-1)
-      description: Firmware read wrong differential pair in V1-V3; corrected in V4
+      description: Alphasense B4 aux (firmware read wrong differential pair in V1-V3; corrected to 2-3 and renamed Alphasense_Auxiliary in V4)
     Temperature:
       unit: Celsius
       dtype: float
@@ -355,65 +355,59 @@ OzPOD_V2:
       unit: Ohms
       dtype: uint32_t
       sensor: BME680
-  Cell:
-    MiCS2611_Ozone:
-      unit: ADU
-      dtype: uint16_t
-    MQ131_Ozone:
-      unit: ADU
-      dtype: uint16_t
-    Alphasense_Aux:
-      unit: ADU
-      dtype: uint16_t
-    Alphasense_Main:
-      unit: ADU
-      dtype: uint16_t
-    Temperature:
-      unit: Celsius
-      dtype: float
-    Relative_Humidity:
-      unit: "%RH"
-      dtype: float
-
-OzPOD_V3:
-  date: 2025-05-22
-  changelog: Changed both Alphasense outputs (Alphasense_Main, Alphasense_Aux) dtype
-    from uint16_t to int16_t to allow negative values from differential reads.
+      description: Raw gas resistance from BME680 VOC heater element; interpret
+        relative to baseline only, not as absolute VOC concentration
+LPOD_V5:
+  date: 2024-08
+  changelog: Preparing to move from Particle Electron to Boron 404x
   SD_fileinfo:  
-    FileName: OzPODID_YYYY_MM_dd
-    FileType: .CSV
+    FileName: LPODID_YYYY_MM_dd 
+    FileType: .CSV 
+  Cell_Eventinfo: 
+    EventName: TEST
+    EventType: PRIVATE
+    SprintfFormat: "[[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f]]"
+    RowsPerEvent: 19
+    LogPeriod: 5s
   SD:
     DateTime:
       unit: timestamp
       dtype: string
       format: "YYYY-MM-ddThh:mm:ss"
       sensor: DS3231
-    MiCS2611_Ozone:
+      description: ISO 8601 timestamp from DS3231 RTC
+    Fig1:
       unit: ADU
       dtype: uint16_t
-      sensor: MiCS-2611
+      sensor: Figaro TGS footprint 1, sensor (Often TGS 2600)
       adc: ADS1115
       adc_mode: single-ended
-    MQ131_Ozone:
+    Fig2:
       unit: ADU
       dtype: uint16_t
-      sensor: MQ131
+      sensor: Figaro TGS footprint 2, sensor (Often TGS 2602)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig3:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 3
       adc: ADS1115
       adc_mode: single-ended
     Alphasense_Main:
       unit: ADU
-      dtype: int16_t
+      dtype: uint16_t
       sensor: Alphasense B4
       adc: ADS1115
       adc_mode: differential (2-3)
-      description: Firmware read wrong differential pair in V1-V3; corrected in V4
+      description: Alphasense B4 main (firmware read wrong differential pair in V1-V3; corrected to 0-1 and renamed Alphasense_Worker in V4)
     Alphasense_Aux:
       unit: ADU
-      dtype: int16_t
+      dtype: uint16_t
       sensor: Alphasense B4
       adc: ADS1115
       adc_mode: differential (0-1)
-      description: Firmware read wrong differential pair in V1-V3; corrected in V4
+      description: Alphasense B4 aux (firmware read wrong differential pair in V1-V3; corrected to 2-3 and renamed Alphasense_Auxiliary in V4)
     Temperature:
       unit: Celsius
       dtype: float
@@ -430,67 +424,41 @@ OzPOD_V3:
       unit: Ohms
       dtype: uint32_t
       sensor: BME680
+      description: Raw gas resistance from BME680 VOC heater element; interpret
+        relative to baseline only, not as absolute VOC concentration
   Cell:
-    MiCS2611_Ozone:
+    Fig1:
       unit: ADU
       dtype: uint16_t
-    MQ131_Ozone:
+      sensor: Figaro TGS footprint 1, sensor (Often TGS 2600)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig2:
       unit: ADU
       dtype: uint16_t
-    Alphasense_Aux:
+      sensor: Figaro TGS footprint 2, sensor (Often TGS 2602)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig3:
       unit: ADU
-      dtype: int16_t
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 3
+      adc: ADS1115
+      adc_mode: single-ended
     Alphasense_Main:
       unit: ADU
-      dtype: int16_t
-    Temperature:
-      unit: Celsius
-      dtype: float
-    Relative_Humidity:
-      unit: "%RH"
-      dtype: float
-
-OzPOD_V4:
-  date: 2026-04-06
-  changelog: Firmware differential channel assignments corrected to match actual hardware wiring per Alphasense B4 datasheet.
-    Auxiliary electrode moved from differential (0-1) to (2-3), Worker from (2-3) to (0-1).
-    Renamed Alphasense_Main to Alphasense_Worker & Alphasense_Aux to Alphasense_Auxiliary to reflect proper electrode roles.
-    ads_module.cpp updated with correct differential read channel assignments.
-  SD_fileinfo:  
-    FileName: OzPODID_YYYY_MM_dd
-    FileType: .CSV
-  SD:
-    DateTime:
-      unit: timestamp
-      dtype: string
-      format: "YYYY-MM-ddThh:mm:ss"
-      sensor: DS3231
-    MiCS2611_Ozone:
-      unit: ADU
       dtype: uint16_t
-      sensor: MiCS-2611
-      adc: ADS1115
-      adc_mode: single-ended
-    MQ131_Ozone:
-      unit: ADU
-      dtype: uint16_t
-      sensor: MQ131
-      adc: ADS1115
-      adc_mode: single-ended
-    Alphasense_Worker:
-      unit: ADU
-      dtype: int16_t
-      sensor: Alphasense B4
-      adc: ADS1115
-      adc_mode: differential (0-1)
-      description: Worker electrode; firmware corrected to read proper differential pair (0-1) in V4, renamed from Alphasense_Main
-    Alphasense_Auxiliary:
-      unit: ADU
-      dtype: int16_t
       sensor: Alphasense B4
       adc: ADS1115
       adc_mode: differential (2-3)
-      description: Auxiliary electrode; firmware corrected to read proper differential pair (2-3) in V4, renamed from Alphasense_Aux
+      description: Alphasense B4 main (firmware read wrong differential pair in V1-V3; corrected to 0-1 and renamed Alphasense_Worker in V4)
+    Alphasense_Aux:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_mode: differential (0-1)
+      description: Alphasense B4 aux (firmware read wrong differential pair in V1-V3; corrected to 2-3 and renamed Alphasense_Auxiliary in V4)
     Temperature:
       unit: Celsius
       dtype: float
@@ -507,22 +475,335 @@ OzPOD_V4:
       unit: Ohms
       dtype: uint32_t
       sensor: BME680
-  Cell:
-    MiCS2611_Ozone:
+      description: Raw gas resistance from BME680 VOC heater element; interpret
+        relative to baseline only, not as absolute VOC concentration
+LPOD_V6:
+  date: 2024-08
+  changelog: Migrating to the Boron 404x
+  SD_fileinfo:  
+    FileName: LPODID_YYYY_MM_dd 
+    FileType: .CSV 
+  Cell_Eventinfo: 
+    EventName: LPODID
+    EventType: PRIVATE
+    SprintfFormat: "[[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f]]"
+    RowsPerEvent: 19
+    LogPeriod: 10s
+  SD:
+    DateTime:
+      unit: timestamp
+      dtype: string
+      format: "YYYY-MM-ddThh:mm:ss"
+      sensor: DS3231
+      description: ISO 8601 timestamp from DS3231 RTC
+    Fig1:
       unit: ADU
       dtype: uint16_t
-    MQ131_Ozone:
+      sensor: Figaro TGS footprint 1, sensor (Often TGS 2600)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig2:
       unit: ADU
       dtype: uint16_t
-    Alphasense_Auxiliary:
+      sensor: Figaro TGS footprint 2, sensor (Often TGS 2602)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig3:
       unit: ADU
-      dtype: int16_t
-    Alphasense_Worker:
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 3
+      adc: ADS1115
+      adc_mode: single-ended
+    Alphasense_Main:
       unit: ADU
-      dtype: int16_t
+      dtype: uint16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_mode: differential (2-3)
+      description: Alphasense B4 main (firmware read wrong differential pair in V1-V3; corrected to 0-1 and renamed Alphasense_Worker in V4)
+    Alphasense_Aux:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_mode: differential (0-1)
+      description: Alphasense B4 aux (firmware read wrong differential pair in V1-V3; corrected to 2-3 and renamed Alphasense_Auxiliary in V4)
     Temperature:
       unit: Celsius
       dtype: float
+      sensor: BME680
+    Pressure:
+      unit: Pascals
+      dtype: float
+      sensor: BME680
     Relative_Humidity:
       unit: "%RH"
       dtype: float
+      sensor: BME680
+    BME680_Gas_Resistance:
+      unit: Ohms
+      dtype: uint32_t
+      sensor: BME680
+      description: Raw gas resistance from BME680 VOC heater element; interpret
+        relative to baseline only, not as absolute VOC concentration
+  Cell:
+    Fig1:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 1, sensor (Often TGS 2600)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig2:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 2, sensor (Often TGS 2602)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig3:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 3
+      adc: ADS1115
+      adc_mode: single-ended    
+    Alphasense_Aux:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_mode: differential (0-1)
+      description: Alphasense B4 aux (firmware read wrong differential pair in V1-V3; corrected to 2-3 and renamed Alphasense_Auxiliary in V4)
+    Alphasense_Main:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_mode: differential (2-3)
+      description: Alphasense B4 main (firmware read wrong differential pair in V1-V3; corrected to 0-1 and renamed Alphasense_Worker in V4)
+    Temperature:
+      unit: Celsius
+      dtype: float
+      sensor: BME680
+    Relative_Humidity:
+      unit: "%RH"
+      dtype: float
+      sensor: BME680
+LPOD_V7:
+  date: 2024-10
+  changelog: Fixes measurement issue in AS-B4 sensors, logging was problematic previously
+  SD_fileinfo:  
+    FileName: LPODID_YYYY_MM_dd 
+    FileType: .CSV 
+  Cell_Eventinfo: 
+    EventName: LPODID
+    EventType: PRIVATE
+    SprintfFormat: "[[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f],[%5.u,%5.u,%5.u,%5.u,%5.u,%2.2f,%2.2f]]"
+    RowsPerEvent: 19
+    LogPeriod: 10s
+  SD:
+    DateTime:
+      unit: timestamp
+      dtype: string
+      format: "YYYY-MM-ddThh:mm:ss"
+      sensor: DS3231
+      description: ISO 8601 timestamp from DS3231 RTC
+    Fig1:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 1, sensor (Often TGS 2600)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig2:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 2, sensor (Often TGS 2602)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig3:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 3
+      adc: ADS1115
+      adc_mode: single-ended
+    Alphasense_Main:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_mode: differential (2-3)
+      description: Alphasense B4 main (firmware read wrong differential pair in V1-V3; corrected to 0-1 and renamed Alphasense_Worker in V4)
+    Alphasense_Aux:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_mode: differential (0-1)
+      description: Alphasense B4 aux (firmware read wrong differential pair in V1-V3; corrected to 2-3 and renamed Alphasense_Auxiliary in V4)
+    Temperature:
+      unit: Celsius
+      dtype: float
+      sensor: BME680
+    Pressure:
+      unit: Pascals
+      dtype: float
+      sensor: BME680
+    Relative_Humidity:
+      unit: "%RH"
+      dtype: float
+      sensor: BME680
+    BME680_Gas_Resistance:
+      unit: Ohms
+      dtype: uint32_t
+      sensor: BME680
+      description: Raw gas resistance from BME680 VOC heater element; interpret
+        relative to baseline only, not as absolute VOC concentration
+  Cell:
+    Fig1:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 1, sensor (Often TGS 2600)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig2:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 2, sensor (Often TGS 2602)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig3:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 3
+      adc: ADS1115
+      adc_mode: single-ended    
+    Alphasense_Aux:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_mode: differential (0-1)
+      description: Alphasense B4 aux (firmware read wrong differential pair in V1-V3; corrected to 2-3 and renamed Alphasense_Auxiliary in V4)
+    Alphasense_Main:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_mode: differential (2-3)
+      description: Alphasense B4 main (firmware read wrong differential pair in V1-V3; corrected to 0-1 and renamed Alphasense_Worker in V4)
+    Temperature:
+      unit: Celsius
+      dtype: float
+      sensor: BME680
+    Relative_Humidity:
+      unit: "%RH"
+      dtype: float
+      sensor: BME680
+LPOD_V8:
+  date: 2025-07
+  changelog: Added negative measurement on Alphasense B4 (& fixes issues with JSON for event)
+  SD_fileinfo:  
+    FileName: LPODID_YYYY_MM_dd 
+    FileType: .CSV 
+  Cell_Eventinfo: 
+    EventName: LPODID
+    EventType: PRIVATE
+    SprintfFormat: "[[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],[%5d,%5d,%5d,%5d,%5d,%2.2f,%2.2f],]"
+    RowsPerEvent: 19
+    LogPeriod: 10s
+  SD:
+    DateTime:
+      unit: timestamp
+      dtype: string
+      format: "YYYY-MM-ddThh:mm:ss"
+      sensor: DS3231
+      description: ISO 8601 timestamp from DS3231 RTC
+    Fig1:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 1, sensor (Often TGS 2600)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig2:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 2, sensor (Often TGS 2602)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig3:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 3
+      adc: ADS1115
+      adc_mode: single-ended
+    Alphasense_Main:
+      unit: ADU
+      dtype: int16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_mode: differential (2-3)
+      description: Alphasense B4 main (firmware read wrong differential pair in V1-V3; corrected to 0-1 and renamed Alphasense_Worker in V4)
+    Alphasense_Aux:
+      unit: ADU
+      dtype: int16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_mode: differential (0-1)
+      description: Alphasense B4 aux (firmware read wrong differential pair in V1-V3; corrected to 2-3 and renamed Alphasense_Auxiliary in V4)
+    Temperature:
+      unit: Celsius
+      dtype: float
+      sensor: BME680
+    Pressure:
+      unit: Pascals
+      dtype: float
+      sensor: BME680
+    Relative_Humidity:
+      unit: "%RH"
+      dtype: float
+      sensor: BME680
+    BME680_Gas_Resistance:
+      unit: Ohms
+      dtype: uint32_t
+      sensor: BME680
+      description: Raw gas resistance from BME680 VOC heater element; interpret
+        relative to baseline only, not as absolute VOC concentration
+  Cell:
+    Fig1:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 1, sensor (Often TGS 2600)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig2:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 2, sensor (Often TGS 2602)
+      adc: ADS1115
+      adc_mode: single-ended
+    Fig3:
+      unit: ADU
+      dtype: uint16_t
+      sensor: Figaro TGS footprint 3
+      adc: ADS1115
+      adc_mode: single-ended    
+    Alphasense_Aux:
+      unit: ADU
+      dtype: int16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_mode: differential (0-1)
+      description: Alphasense B4 aux (firmware read wrong differential pair in V1-V3; corrected to 2-3 and renamed Alphasense_Auxiliary in V4)
+    Alphasense_Main:
+      unit: ADU
+      dtype: int16_t
+      sensor: Alphasense B4
+      adc: ADS1115
+      adc_mode: differential (2-3)
+      description: Alphasense B4 main (firmware read wrong differential pair in V1-V3; corrected to 0-1 and renamed Alphasense_Worker in V4)
+    Temperature:
+      unit: Celsius
+      dtype: float
+      sensor: BME680
+    Relative_Humidity:
+      unit: "%RH"
+      dtype: float
+      sensor: BME680
