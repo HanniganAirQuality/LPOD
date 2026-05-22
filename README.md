@@ -13,6 +13,8 @@ Thanks to Izzy for this suggestion! Here we will be tracking each version of the
 |                         | V8            | "Final" Firmware   | Percy         | July 2025          | Negative meas on AS-B4 being deranged  |
 
 ## Legacy Versions (Out-of-Use Microcontrollers)
+| Microcontroller         | Version       | "Named" Ver.       | Pilot         | Date               | Description & Purpose                  |
+| ----------------------- | ------------- | ------------------ | ------------- | -------------      | -------------------------------------- |
 | Arduino MKR 1500        | V1.0.0        | Initial Firmware   | Percy         | July 2024          | Very first LPOD firmware for testing   |
 |                         | V1.1.0        | MKR updated        | Percy         | July 2024          | Minor bug fixes & development from 1   |
 | Particle Electron       | POC           | Proof-of-concept   | Percy         | July 2024          | Testing LPOD off Particle              |
