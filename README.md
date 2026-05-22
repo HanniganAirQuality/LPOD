@@ -8,15 +8,15 @@ This firmware has three use-cases. Arudino MKR, Particle Electron, and Particle 
 Thanks to Izzy for this suggestion! Here we will be tracking each version of the firmware. (IDK why this one is backwards??)
 | Microcontroller         | Version       | "Named" Ver.       | Pilot         | Date               | Description & Purpose                  |
 | ----------------------- | ------------- | ------------------ | ------------- | -------------      | -------------------------------------- |
-| Particle Boron404x      | V8            | "Final" Firmware   | Percy         | July 2025          | Negative meas on AS-B4 being deranged  |
+| Particle Boron404x      | V6            | Migrate to Boron   | Percy         | August 2024        | Moves to Boron & optimize cell         |
 |                         | V7            | Repair B4 Meas.    | Percy         | October 2024       | Changes measurement of AS-B4 sensors   |
-|                         | V6            | Migrate to Boron   | Percy         | August 2024        | Moves to Boron & optimize cell         |
-| Particle Electron       | V5            | Prep for Boron     | Percy         | August 2024        | Preparing to move to Boron 404x        |
-|                         | V4            | Integrate cellular | Percy         | August 2024        | Logs to SD, Cell, and all sensors      |
-|                         | V3            | Continuing edits   | Percy         | August 2024        | Updates and continued edits            |
+|                         | V8            | "Final" Firmware   | Percy         | July 2025          | Negative meas on AS-B4 being deranged  |
+
+## Legacy Versions (Out-of-Use Microcontrollers)
+| Arduino MKR 1500        | V1.0.0        | Initial Firmware   | Percy         | July 2024          | Very first LPOD firmware for testing   |
+|                         | V1.1.0        | MKR updated        | Percy         | July 2024          | Minor bug fixes & development from 1   |
+| Particle Electron       | POC           | Proof-of-concept   | Percy         | July 2024          | Testing LPOD off Particle              |
 |                         | V2            | Refining usability | Percy         | August 2024        | Refining UI & running new sensors      |
-|                         | POC           | Proof-of-concept   | Percy         | July 2024          | Testing LPOD off Particle              |
-| Arduino MKR 1500        | V1.1.0        | MKR updated        | Percy         | July 2024          | Minor bug fixes & development from 1   |
-|                         | V1.0.0        | Initial Firmware   | Percy         | July 2024          | Very first LPOD firmware for testing   |
-
-
+|                         | V3            | Continuing edits   | Percy         | August 2024        | Updates and continued edits            |
+|                         | V4            | Integrate cellular | Percy         | August 2024        | Logs to SD, Cell, and all sensors      |
+|                         | V5            | Prep for Boron     | Percy         | August 2024        | Preparing to move to Boron 404x        |
