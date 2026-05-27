@@ -10,7 +10,8 @@ Thanks to Izzy for this suggestion! Here we will be tracking each version of the
 | ----------------------- | ------------- | ------------------ | ------------- | -------------      | -------------------------------------- |
 | Particle Boron404x      | V6            | Migrate to Boron   | Percy         | August 2024        | Moves to Boron & optimize cell         |
 |                         | V7            | Repair B4 Meas.    | Percy         | October 2024       | Changes measurement of AS-B4 sensors   |
-|                         | V8            | "Final" Firmware   | Percy         | July 2025          | Negative meas on AS-B4 being deranged  |
+|                         | V8            | Adds Neg Meas.     | Percy         | July 2025          | Negative meas on AS-B4 being deranged  |
+|                         | V9            | Change B4 Naming   | Percy         | May 2026           | Corrects Aux/Worker naming to hw comp  |
 
 ## Legacy Versions (Out-of-Use Microcontrollers)
 | Microcontroller         | Version       | "Named" Ver.       | Pilot         | Date               | Description & Purpose                  |
