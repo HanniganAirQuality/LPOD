@@ -1,15 +1,14 @@
 /*******************************************************************************
- * @file    LPOD_Particle-V8.cpp
+ * @file    LPOD_Particle-V9.cpp
  * @brief   Central Firmware
  * 
- * @version V8
+ * @version V9
  *
  * @author  Percy Smith, percy.smith@colorado.edu
- * @date    July 29, 2025
- * @log     Updated ads_module's alphasense stuff bc he is not measuring negative apparently!!!! :(
- *          Resolves problems with JSON formatting (IN THEORY)
+ * @date    May 27, 2026
+ * @log     Resolves prob with firmware naming of the LPOD Aux & Work channels
  * 
- * @issues  Problems with T/RH 
+ * @issues  Problems with T/RH over long periods of time?
 ******************************************************************************/
 // Include Particle Device OS APIs
 #include "Particle.h"
@@ -203,10 +202,10 @@ void loop() {
         file.print(ads.Fig3); 
         file.print(F(","));
         delay(100);
-        file.print(ads.Worker); 
+        file.print(ads.Auxiliary); 
         file.print(F(","));
         delay(100);
-        file.print(ads.Auxiliary); 
+        file.print(ads.Worker); 
         file.print(F(","));
         delay(100);
       #endif  //ADS_ENABLED
@@ -247,10 +246,10 @@ void loop() {
         Serial.print(ads.Fig3); 
         Serial.print(F(","));
         delay(100);
-        Serial.print(ads.Worker); 
+        Serial.print(ads.Auxiliary); 
         Serial.print(F(","));
         delay(100);
-        Serial.print(ads.Auxiliary); 
+        Serial.print(ads.Worker); 
         Serial.print(F(","));
         delay(100);
       #endif  //ADS_ENABLED

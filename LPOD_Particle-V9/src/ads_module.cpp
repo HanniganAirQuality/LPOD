@@ -5,8 +5,8 @@
  * @cite    XPOD >> ads_module.cpp by Ajay Kandagal, ajka9053@colorado.edu
  *
  * @author  Percy Smith, percy.smith@colorado.edu
- * @date    July 29, 2025
- * @log     Repairs the Worker & Auxiliary to be int16_t not uint16_t
+ * @date    May 27, 2026
+ * @log     Changes Worker & Auxiliary naming to be correct with hardware
 ******************************************************************************/
 #include "ads_module.h"
 
@@ -93,9 +93,9 @@ uint16_t ADS_Module::read_raw(ads_sensor_id_e ads_sensor_id)
  *    @return Raw alphasense Aux readings with reference to V_reference
  */
 /**************************************************************************/
-int16_t ADS_Module::read_b4_aux()
+int16_t ADS_Module::read_b4_worker()
 {
-  ads_module_t *sensor = &ads_module[B4_AUXILIARY];//& VREF TOO
+  ads_module_t *sensor = &ads_module[B4_WORKER];//& VREF TOO
 
   // float val;
   // const float multiplier = 0.1875F;  // ADS1115  @ +/- 6.144V gain (16-bit results)
@@ -112,9 +112,9 @@ int16_t ADS_Module::read_b4_aux()
  *    @return Raw alphasense Worker readings
  */
 /**************************************************************************/
-int16_t ADS_Module::read_b4_worker()
+int16_t ADS_Module::read_b4_auxiliary()
 {
-  ads_module_t *sensor = &ads_module[B4_WORKER]; //& VREF TOO
+  ads_module_t *sensor = &ads_module[B4_AUXILIARY]; //& VREF TOO
 
   // float val;
   // const float multiplier = 0.1875F;  // ADS1115  @ +/- 6.144V gain (16-bit results)
@@ -146,7 +146,7 @@ ads_data ADS_Module::return_updated()
   delay(100);
   // dataset.Unused2 = read_raw(VOLT_REF1);
   delay(100);
-  dataset.Auxiliary = read_b4_aux();
+  dataset.Auxiliary = read_b4_auxiliary();
   delay(100);
   // dataset.Unused3 = read_raw(VOLT_REF2);
   delay(100);

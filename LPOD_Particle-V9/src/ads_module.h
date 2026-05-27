@@ -5,8 +5,8 @@
  * @cite    XPOD >> ads_module.cpp by Ajay Kandagal, ajka9053@colorado.edu
  *
  * @author  Percy Smith, percy.smith@colorado.edu
- * @date    July 29, 2025
- * @log     Repairs the Worker & Auxiliary to be int16_t not uint16_t
+ * @date    May 27, 2026
+ * @log     Changes Worker & Auxiliary naming to be correct with hardware
 ******************************************************************************/
 #ifndef _ADS_MODULE_H
 #define _ADS_MODULE_H
@@ -59,8 +59,8 @@ class ADS_Module {
     bool begin();
 
     uint16_t read_raw(ads_sensor_id_e ads_sensor_id);
-    int16_t read_b4_aux();
     int16_t read_b4_worker();
+    int16_t read_b4_auxiliary();
     ads_data return_updated();
 
   private:
